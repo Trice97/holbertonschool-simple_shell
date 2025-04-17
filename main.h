@@ -7,6 +7,8 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+
 
 #define DELIM " \t\r\n"
 #define BUFFER_SIZE 1024
@@ -19,5 +21,7 @@ char **split_line(char *line);
 extern char **environ;
 char *read_command(char *buffer);
 void execute_command(char *commande);
+int _which(char *filename);
+
 
 #endif
