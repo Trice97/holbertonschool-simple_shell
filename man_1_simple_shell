@@ -1,0 +1,33 @@
+.TH SIMPLE_SHELL 1 "April 2025" "1.0" "User Commands"
+.SH NAME
+simple_shell \- simple UNIX command interpreter
+.SH SYNOPSIS
+.B simple_shell
+.RI [ scriptfile ]
+.SH DESCRIPTION
+.B simple_shell
+is a minimal UNIX command interpreter that executes commands read from standard input or a script file.
+.PP
+The shell supports execution of standard UNIX commands, built-in commands (\fBexit\fP, \fBenv\fP), and command arguments. It runs in both interactive and non-interactive modes.
+.SH OPTIONS
+No options are supported.
+.SH BUILTINS
+.TP
+.B exit
+Exit the shell.
+.TP
+.B env
+Display the environment variables.
+.SH EXAMPLES
+.TP
+Interactive mode:
+.B
+$ ./simple_shell
+.TP
+Non-interactive mode:
+.B
+$ echo "ls -l" | ./simple_shell
+.SH AUTHORS
+Ahmed Cisse, Mahamat Abdalllah Moussa, Patrice Bolin
+.SH SEE ALSO
+sh(1), bash(1)

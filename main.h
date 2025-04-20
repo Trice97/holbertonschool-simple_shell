@@ -13,21 +13,21 @@
 #define DELIM " \t\r\n"
 #define BUFFER_SIZE 1024
 
-extern char **environ; // Accès à la variable globale environ
+extern char **environ;
 
 /**
- * struct path_node - structure pour représenter un répertoire du PATH
- * @dir: chaîne représentant le répertoire
- * @next: pointeur vers le prochain nœud de la liste
- */
+* struct path_node - structure pour représenter un répertoire du PATH
+* @dir: chaîne représentant le répertoire
+* @next: pointeur vers le prochain nœud de la liste
+*/
 typedef struct path_node
 {
-    char *dir;
-    struct path_node *next;
+char *dir;
+struct path_node *next;
 } path_node;
 
 
-/* prototype de fonctions */
+
 
 pid_t getpid(void);
 pid_t getppid(void);
