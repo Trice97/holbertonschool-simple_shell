@@ -1,39 +1,36 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "main.h"
+#include "shell.h"
 
 /**
-* main - Point d'entrée du programme de test
-* Ce programme appelle plusieurs fonctions liées à la gestion
-* de l'environnement : affichage des répertoires PATH, construction
-* d'une liste chaînée à partir de PATH, ajout et suppression de
-* variables d'environnement.
-* Return: Always 0.
+* main - Entry point for the simple shell
+* @ac: Argument count (unused)
+* @av: Argument vector (unused)
+*
+* Return: 0 on success, or exit status on failure
 */
-int main(void)
+int main(int ac, char **av)
 {
-path_node *list, *tmp;
+char *line = NULL;
+size_t len = 0;
+ssize_t read;
 
-printf("===== Test de print_path_dirs =====\n");
-print_path_dirs();
+(void)ac;
+(void)av;
 
-printf("\n===== Test de build_path_list =====\n");
-list = build_path_list();
-tmp = list;
-while (tmp)
+while (1)
 {
-printf("%s\n", tmp->dir);
-tmp = tmp->next;
+prompt();
+read = getline(&line, &len, stdin);
+if (read == -1)
+{
+free(line);
+write(STDOUT_FILENO, "\n", 1);
+break;
 }
-free_path_list(list);
-
-printf("\n===== Test de _setenv =====\n");
-_setenv("TEST_VAR", "Hello", 1);
-printf("TEST_VAR = %s\n", getenv("TEST_VAR"));
-
-printf("\n===== Test de _unsetenv =====\n");
-_unsetenv("TEST_VAR");
-printf("TEST_VAR après unset = %s\n", getenv("TEST_VAR"));
-
+if (line[read - 1] == '\n')
+line[read - 1] = '\0';
+execute_command(line);
+}
+free(line);
 return (0);
 }
+
