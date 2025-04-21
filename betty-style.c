@@ -10,8 +10,8 @@
 */
 
 int main(void)
-	{
-		printf("Hello, Betty!\n");
+{
+	printf("Hello, Betty!\n");
 
-		return (0);
-	}
+	return (0);
+}
