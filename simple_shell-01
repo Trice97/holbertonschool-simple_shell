@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+/**
+ * main - Entry point for the simple shell.
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+	char *argv[2];
+	int status;
+	pid_t pid;
+
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+		{
+			printf("#cisfun$ ");
+		}
+		read = getline(&line, &len, stdin);
+		if (read == -1)
+		{
+			if (feof(stdin))
+			{
+				printf("\n");
+				break;
+			}
+			perror("getline");
+			free(line);
+			exit(EXIT_FAILURE);
+		}
+
+		/* Remove trailing newline */
+		if (line[read - 1] == '\n')
+		{
+			line[read - 1] = '\0';
+		}
+
+		if (strcmp(line, "exit") == 0)
+		{
+			free(line);
+			exit(EXIT_SUCCESS);
+		}
+
+		argv[0] = line;
+		argv[1] = NULL;
+
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+		}
+		else if (pid == 0)
+		{
+			/* Child process */
+			if (execve(argv[0], argv, environ) == -1)
+			{
+				fprintf(stderr, "./shell: No such file or directory\n");
+				exit(127);
+			}
+		}
+		else
+		{
+			/* Parent process */
+			wait(&status);
+		}
+
+		free(line);
+		line = NULL;
+	}
+
+	return (0);
+}
