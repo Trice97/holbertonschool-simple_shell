@@ -16,7 +16,7 @@ if (path == NULL)
 return;
 
 path_copy = strdup(path);
-if (path_copy == NULL) /* ✅ ici c'était l'erreur signalée */
+if (path_copy == NULL)
 return;
 
 token = strtok(path_copy, ":");

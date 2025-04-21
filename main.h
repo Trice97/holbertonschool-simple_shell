@@ -34,7 +34,6 @@ pid_t getppid(void);
 char **split_line(char *line);
 extern char **environ;
 char *read_command(char *buffer);
-void execute_command(char *commande);
 int _which(char *filename);
 char *_getenv(const char *name);
 void print_path_dirs(void);
@@ -45,7 +44,7 @@ int _unsetenv(const char *name);
 void handle_setenv(char *cmd);
 void execute_external(char *cmd);
 void handle_unsetenv(char *cmd);
-
+int execute_command(char **argv);
 
 
 #endif
