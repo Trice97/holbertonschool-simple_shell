@@ -8,15 +8,20 @@
 */
 int main(int ac, char **av)
 {
-    int i;
+	int i;
 
-    if (ac < 2) {
-        printf("Usage: %s filename ...\n", av[0]);
-        return (1);
-    }
+	if (ac < 2)
 
-    for (i = 1; av[i]; i++)
-        _which(av[i]);
+	{
+	printf("Usage: %s filename ...\n", av[0]);
 
-    return (0);
+	return (1);
+
+	}
+
+	for (i = 1; av[i]; i++)
+
+	_which(av[i]);
+
+	return (0);
 }

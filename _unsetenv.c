@@ -7,38 +7,39 @@
 */
 int _unsetenv(const char *name)
 {
-    int i = 0, j = 0;
-    size_t len = strlen(name);
-    char **new_environ;
+	int i = 0, j = 0;
+	size_t len = strlen(name);
+	char **new_environ;
 
-    while (environ[i])
-    {
-        if (strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
-        {
+	while (environ[i])
+	{
+	if (strncmp(environ[i], name, len) == 0 && environ[i][len] == '=')
+	{
 
-            while (environ[j])
-                j++;
+		while (environ[j])
+		j++;
 
-            new_environ = malloc(sizeof(char *) * j);
-            if (!new_environ)
-                return (-1);
+		new_environ = malloc(sizeof(char *) * j);
+		if (!new_environ)
 
-            for (i = 0, j = 0; environ[i]; i++)
-            {
-                if (strncmp(environ[i], name, len) != 0 || environ[i][len] != '=')
-                {
-                    new_environ[j] = environ[i];
-                    j++;
-                }
-            }
-            new_environ[j] = NULL;
+			return (-1);
 
-            environ = new_environ;
+		for (i = 0, j = 0; environ[i]; i++)
+	{
+		if (strncmp(environ[i], name, len) != 0 || environ[i][len] != '=')
+		{
+			new_environ[j] = environ[i];
+			j++;
+		}
+	}
+		new_environ[j] = NULL;
 
-            return (0);
-        }
-        i++;
-    }
+		environ = new_environ;
 
-    return (-1);
+		return (0);
+	}
+		i++;
+	}
+
+	return (-1);
 }
