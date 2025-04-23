@@ -15,25 +15,28 @@
 
 int simple_shell(int argc, char **argv, char **env)
 {
-	char *line = NULL;
+	char buffer[BUFFER_SIZE];
+	char *line;
 
 	(void)argc;
+	(void)argv;
 
 	while (1)
 	{
-		prompt(); /*display the prompt*/
+		printf("#cisfun$");
+		fflush(stdout);
 
-		line = read_command();/*read the user's entry*/
-	if (!line)
-		break;
+		line = fgets(buffer, BUFFER_SIZE, stdin);
+		if (!line) /*handle EOF (Ctrl+d)*/
+			break;
 
-	if	(is_builtin(line))
-		execute_builtin(line, env);
-	else
-		execute_command(line, argv, env);/*external command*/
+		line[strcspn(line, "\n")] = '\0';
 
-		free(line);
+		execute_command(line) ==-1;
+		{
+			pereror("error exucuting command");
+		}	
 
-	}
+	}		
 	return (0);
 }
