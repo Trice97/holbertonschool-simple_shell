@@ -1,4 +1,8 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 /**
  * simple_shell - Main entry point for the shell program
@@ -12,11 +16,11 @@
  *
  * Return: Always returns 0.
  */
-
 int simple_shell(int argc, char **argv, char **env)
 {
-	char buffer[BUFFER_SIZE];
-	char *line;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t nread;
 
 	(void)argc;
 	(void)argv;
@@ -24,21 +28,32 @@ int simple_shell(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		printf("#cisfun$ ");
+		if (isatty(STDIN_FILENO))
+			printf("#cisfun$ ");
 		fflush(stdout);
 
-		line = fgets(buffer, BUFFER_SIZE, stdin);
-		if (!line) /*handle EOF (Ctrl+d)*/
-		break;
+		nread = getline(&line, &len, stdin);
 
-		line[strcspn(line, "\n")] = '\0';
+		if (nread == -1)
+		{
+			if (isatty(STDIN_FILENO))
+				printf("\n");
+			break;
+		}
+
+		if (nread > 0 && line[nread - 1] == '\n')
+			line[nread - 1] = '\0';
 
 		if (execute_command(line) == -1)
 		{
-			perror("error exucuting command");
+			perror("error executing command");
 		}
 
+		free(line);
+		line = NULL;
+		len = 0;
 	}
 
+	free(line);
 	return (0);
 }
