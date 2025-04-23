@@ -20,23 +20,25 @@ int simple_shell(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	(void)env;
 
 	while (1)
 	{
-		printf("#cisfun$");
+		printf("#cisfun$ ");
 		fflush(stdout);
 
 		line = fgets(buffer, BUFFER_SIZE, stdin);
 		if (!line) /*handle EOF (Ctrl+d)*/
-			break;
+		break;
 
 		line[strcspn(line, "\n")] = '\0';
 
-		execute_command(line) ==-1;
+		if (execute_command(line) == -1)
 		{
-			pereror("error exucuting command");
-		}	
+			perror("error exucuting command");
+		}
 
-	}		
+	}
+
 	return (0);
 }
