@@ -35,7 +35,6 @@ int main(int argc, char **argv)
             write(STDOUT_FILENO, "#cisfun$ ", 9);
             fflush(stdout);
         }
-      
         read = getline(&line, &len, stdin);
         if (read == -1)
         {
