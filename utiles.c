@@ -29,13 +29,13 @@ int execute_command(char *commande)
 	int status;
 
 	if (!commande || *commande == '\0') /*gestion des commandes vides*/
-		return;
+		return (0);
 
-	pid = fork();
 	if (pid == -1) /*erreur de creation de processus*/
 	{
 		perror("fork");
-		return;
+
+		return (-1);
 	}
 
 	if (pid == 0) /*processus enfant*/
