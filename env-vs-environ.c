@@ -1,13 +1,14 @@
 #include "main.h"
 
 /**
-* main - Affiche l'adresse de 'env' paramètre de main
-* et de 'environ' variable globale
-* @ac: le nombre d'arguments passées à la ligne de commande
-* @av: un tableau de chaine contenant les arguments de la ligne de commande
-* @env: un tableau de chaine représentantl'environnement du processus
-* Return Always 0
-*/
+ * main - Affiche l'adresse de 'env' paramètre de main
+ *        et de 'environ' variable globale
+ * @ac: Le nombre d'arguments passés à la ligne de commande
+ * @av: Un tableau de chaînes contenant les arguments de la ligne de commande
+ * @env: Un tableau de chaînes représentant l'environnement du processus
+ *
+ * Return: Always 0 (succès)
+ */
 
 int main(int ac, char **av, char **env)
 {
