@@ -13,7 +13,7 @@
  * Return: Always returns 0.
  */
 
-int simple_shell(int argc, char **argv, char **)
+int simple_shell(int argc, char **argv, char **env)
 {
 	char *line = NULL;
 
@@ -21,13 +21,13 @@ int simple_shell(int argc, char **argv, char **)
 
 	while (1)
 	{
-		prompt(); /*displayy the prompt*/
+		prompt(); /*display the prompt*/
 
 		line = read_command();/*read the user's entry*/
 	if (!line)
 		break;
 
-	if (is_builtin(line))
+	if	(is_builtin(line))
 		execute_builtin(line, env);
 	else
 		execute_command(line, argv, env);/*external command*/
