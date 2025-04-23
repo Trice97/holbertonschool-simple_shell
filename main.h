@@ -17,6 +17,6 @@ extern char **environ;
 /* Prototypes des fonctions principales */
 int simple_shell(int argc, char **argv, char **env);
 char *read_command(char *buffer);
-void execute_command(char *command);
+int execute_command(char *command);
 
 #endif /* MAIN_H */

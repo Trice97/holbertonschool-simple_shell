@@ -23,7 +23,7 @@ char *read_command(char *buffer)
  * execute_command - Crée un processus enfant pour exécuter une commande
  * @commande: Chemin complet de la commande à exécuter
  */
-void execute_command(char *commande)
+int execute_command(char *commande)
 {
 	pid_t pid;
 	int status;
