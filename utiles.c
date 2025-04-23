@@ -3,58 +3,72 @@
 /**
  * read_command - Affiche un prompt et lit la commande de l'utilisateur
  * @buffer: Zone mémoire où stocker la commande
- * Return:Pointeur vers buffer contenant commande ou NULL si cas d'erreur/EOF
+ *
+ * Return: Pointeur vers buffer contenant la commande ou NULL si erreur/EOF
  */
 char *read_command(char *buffer)
 {
+	/* Vérifie que le buffer n'est pas NULL */
+	if (!buffer)
+		return (NULL);
+
+	/* Affiche le prompt */
 	printf("#cisfun$ ");
 	fflush(stdout);
 
-	if (fgets(buffer, BUFFER_SIZE, stdin) == NULL) /*Gestion d'EOF (CTRL + D)*/
+	/* Lit la commande de l'utilisateur */
+	if (fgets(buffer, BUFFER_SIZE, stdin) == NULL) /* Gestion d'EOF (CTRL + D) */
 	{
 		return (NULL);
 	}
 
-	buffer[strcspn(buffer, "\n")] = '\0'; /*supprime le saut de ligne*/
+	/* Supprime le saut de ligne à la fin de la commande */
+	buffer[strcspn(buffer, "\n")] = '\0';
 	return (buffer);
 }
 
 /**
  * execute_command - Crée un processus enfant pour exécuter une commande
  * @commande: Chemin complet de la commande à exécuter
+ *
+ * Return: 0 en cas de succès, -1 en cas d'échec
  */
 int execute_command(char *commande)
 {
-	pid_t pid = -2;
+	pid_t pid;
+	int status;
+	char *argv[2]; /* Déclare le tableau sans initialisation immédiate */
 
-	if (!commande || *commande == '\0') /*gestion des commandes vides*/
-		return (0);
+	/* Vérifie que la commande n'est pas vide */
+	if (!commande || *commande == '\0')
+		return (-1);
 
+	/* Crée un processus enfant */
 	pid = fork();
-	if (pid == -1) /*erreur de creation de processus*/
+	if (pid == -1) /* Gestion d'erreur lors de la création du processus */
 	{
 		perror("fork");
 		return (-1);
 	}
 
-	if (pid == 0) /*processus enfant*/
+	if (pid == 0) /* Processus enfant */
 	{
-		char *argv[] = {commande, NULL};
+		argv[0] = commande; /* Initialise dynamiquement les éléments du tableau */
+		argv[1] = NULL;
 
-		if (execve(commande, argv, environ) == -1) /*excecution de la commande*/
+		/* Exécute la commande avec execve */
+		if (execve(commande, argv, environ) == -1)
 		{
-			perror("./shell"); /*affiche une erreursi la commande echoue*/
+			perror("./shell"); /* Affiche une erreur si la commande échoue */
 			_exit(EXIT_FAILURE);
 		}
 	}
-	else
+	else /* Processus parent */
 	{
-		int status;
-
+		/* Attend la fin de l'exécution du processus enfant */
 		wait(&status);
-
-		return (0);
 	}
 
+	/* Retourne 0 en cas de succès */
 	return (0);
 }
