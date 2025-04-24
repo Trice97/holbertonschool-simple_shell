@@ -1,14 +1,15 @@
 #include "main.h"
 
 /**
- * main - Point d'entrée du programme
- * @argc: Nombre d'arguments
- * @argv: Tableau des arguments
- * @env: Environnement
- *
- * Return: Toujours 0
- */
+* main - point d'entrée principal de l'interpréteur
+* @argc: nombre d'arguments (non utilisé)
+* @argv: tableau d'arguments (non utilisé)
+* @env: environnement
+* Return: 0
+*/
 int main(int argc, char **argv, char **env)
 {
-	return (simple_shell(argc, argv, env));
+(void)argc;
+(void)argv;
+return (simple_shell(env));
 }
