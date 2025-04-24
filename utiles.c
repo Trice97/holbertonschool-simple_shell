@@ -1,59 +1,72 @@
 #include "main.h"
 
 /**
- * read_command - Lit une ligne depuis l'entrée.
- * @lineptr: pointeur vers la ligne
- * @n: taille allouée
- * @fd: descripteur (stdin ou pipe)
- * Return: Nombre de caractères lus ou -1 en cas d'erreur.
- */
+* read_command - Lit une ligne depuis l'entrée.
+* @lineptr: pointeur vers la ligne lue
+* @n: taille allouée pour la ligne
+* @fd: descripteur de fichier (stdin ou pipe)
+* Return: Nombre de caractères lus ou -1 en cas d'erreur
+*/
 ssize_t read_command(char **lineptr, size_t *n, int fd)
 {
-    ssize_t nread;
+ssize_t nread;
 
-    nread = getline(lineptr, n, fd == STDIN_FILENO ? stdin : fdopen(fd, "r"));
-    if (nread == -1)
-        return (-1);
+nread = getline(lineptr, n, fd == STDIN_FILENO ? stdin : fdopen(fd, "r"));
 
-    if ((*lineptr)[nread - 1] == '\n')
-        (*lineptr)[nread - 1] = '\0';
+if (nread == -1)
+return (-1);
 
-    return nread;
+if ((*lineptr)[nread - 1] == '\n')
+(*lineptr)[nread - 1] = '\0';
+
+return nread;
 }
 
 /**
- * execute_command - Exécute la commande donnée.
- * @command: commande
- */
+* execute_command - Exécute la commande donnée.
+* @command: La commande à exécuter
+*/
 void execute_command(char *command)
 {
-    pid_t pid;
-    int status;
-    char *argv[2];
+pid_t pid;
+int status;
+char *argv[2];
 
-    if (!command || *command == '\0')
-        return;
+if (!command || *command == '\0')
+return;
 
-    pid = fork();
-    if (pid == -1)
-    {
-        perror("fork");
-        return;
-    }
+pid = fork();
+if (pid == -1)
+{
+perror("fork");
+return;
+}
 
-    if (pid == 0)
-    {
-        argv[0] = command;
-        argv[1] = NULL;
+if (pid == 0)
+{
+argv[0] = command;
+argv[1] = NULL;
 
-        if (execve(command, argv, environ) == -1)
-        {
-            perror("./shell");
-            _exit(EXIT_FAILURE);
-        }
-    }
-    else
-    {
-        wait(&status);
-    }
+if (execve(command, argv, environ) == -1)
+{
+    perror("./shell");
+    _exit(EXIT_FAILURE);
+}
+}
+else
+{
+wait(&status);
+}
+}
+
+/**
+* free_command - Libère la mémoire allouée pour la ligne de commande.
+* @lineptr: Pointeur vers la ligne de commande à libérer.
+*/
+void free_command(char *lineptr)
+{
+if (lineptr)
+{
+free(lineptr);
+}
 }
