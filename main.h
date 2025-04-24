@@ -14,7 +14,7 @@
 #define BUFFER_SIZE 1024
 
 extern char **environ;
-int simple_shell(int argc, char **argv, char **env);
+int simple_shell(char **env);
 ssize_t read_command(char **lineptr, size_t *n, int fd);
 int execute_command(char *command);
 
