@@ -13,29 +13,29 @@ ssize_t nread;
 int i;
 
 (void)env;
+
 while (1)
 {
-	if (isatty(STDIN_FILENO))
-		printf("#cisfun$ ");
-	fflush(stdout);
+if (isatty(STDIN_FILENO))
+    printf("#cisfun$ ");
+fflush(stdout);
 
-	nread = read_command(&line, &len, STDIN_FILENO);
-	if (nread == -1)
-		break;
+nread = read_command(&line, &len, STDIN_FILENO);
+if (nread == -1)
+    break;
 
-	/* Ignore les lignes vides ou contenant uniquement des espaces */
-	for (i = 0; line[i]; i++)
-	{
-		if (line[i] != ' ' && line[i] != '\t')
-			break;
-	}
-	if (line[i] == '\0')
-		continue;
+for (i = 0; line[i]; i++)
+{
+    if (line[i] != ' ' && line[i] != '\t')
+	break;
+}
+if (line[i] == '\0')
+    continue;
 
-	if (strcmp(line, "exit") == 0)
-		break;
+if (strcmp(line, "exit") == 0)
+    break;
 
-	execute_command(line);
+execute_command(line);
 }
 free(line);
 return (0);
