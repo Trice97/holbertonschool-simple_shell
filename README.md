@@ -48,7 +48,7 @@ main.c :	    Entry point; main loop for reading and executing commands
 main.h :	    Head
 
 # Summary Table 
-https://github.com/Trice97/holbertonschool-simple_shell/blob/671e931554d715ac24995a070e6c867a89a2802a/Capture%20d%E2%80%99e%CC%81cran%202025-04-20%20a%CC%80%2014.46.57.png
+![Texte alternatif](https://github.com/Trice97/holbertonschool-simple_shell/blob/671e931554d715ac24995a070e6c867a89a2802a/Capture%20d%E2%80%99e%CC%81cran%202025-04-20%20a%CC%80%2014.46.57.png)
 
 Summary Table: 
 
