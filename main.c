@@ -9,7 +9,7 @@
 */
 int main(int argc, char **argv, char **env)
 {
-(void)argc;
-(void)argv;
-return (simple_shell(env));
+	(void)argc;
+	(void)argv;
+	return (simple_shell(env));
 }

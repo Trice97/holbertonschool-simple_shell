@@ -14,9 +14,7 @@ ssize_t read_command(char **lineptr, size_t *n, int fd)
 	nread = getline(lineptr, n, fd == STDIN_FILENO ? stdin : fdopen(fd, "r"));
 	if (nread == -1)
 		return (-1);
-
 	if ((*lineptr)[nread - 1] == '\n')
 		(*lineptr)[nread - 1] = '\0';
-
 	return (nread);
 }
