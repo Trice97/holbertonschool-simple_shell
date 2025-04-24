@@ -11,7 +11,6 @@ int simple_shell(char **env)
 	size_t len = 0;
 	ssize_t nread;
 	int i;
-	(void)env;
 
 	while (1)
 	{
@@ -20,7 +19,6 @@ int simple_shell(char **env)
 		fflush(stdout);
 
 		nread = read_command(&line, &len, STDIN_FILENO);
-
 		if (nread == -1)
 			break;
 
@@ -29,21 +27,16 @@ int simple_shell(char **env)
 			if (line[i] != ' ' && line[i] != '\t')
 				break;
 		}
-
 		if (line[i] == '\0')
-		{
-			free(line);
-			line = NULL;
 			continue;
-		}
+
 		if (strcmp(line, "exit") == 0)
-		{
-			free(line);
 			break;
-		}
-		execute_command(line);
+
+		execute_command(line, env); /* Appel corrigé */
 		free(line);
 		line = NULL;
 	}
+	free(line);
 	return (0);
 }

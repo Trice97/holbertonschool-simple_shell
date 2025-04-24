@@ -16,7 +16,7 @@
 extern char **environ;
 int simple_shell(char **env);
 ssize_t read_command(char **lineptr, size_t *n, int fd);
-void execute_command(char *command);
+void execute_command(char *command, char **env);
 void free_command(char *lineptr);
 
 #endif
