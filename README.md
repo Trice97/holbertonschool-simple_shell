@@ -54,4 +54,4 @@ Summary Table:
 
 The summary table outlines the purpose, content guidelines, and authorship for the three core documentation files in your repository: README.md, man_1_simple_shell, and AUTHORS. Here’s a deeper look at each file’s role and best practices:
 
-![Texte alternatif](https://github.com/Trice97/holbertonschool-simple_shell/blob/126d260fc17553c1957c0eae1b805e742fd55ecb/NoteGPT-Flowchart-1745486922777.png)
+![Texte alternatif](https://github.com/Trice97/holbertonschool-simple_shell/blob/0e9fcf587320a64570bc091b5c8b38dff49b544a/Flowchart%20Simple%20Shell.png)
